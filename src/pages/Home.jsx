@@ -15,8 +15,16 @@ const Home = () => {
     console.log(movies);
 
     return (
-        <div>
-            Home
+        <div className='flex flex-wrap  '>
+            {movies?.map(movie => (
+                <div key={`movie ${movie.id}`} className="p-2 w-1/3  ">
+                    <div className='p-2  rounded-md border border-stone-400'>
+
+                        <img className='w-full block max-h-[400px] ' src={`http://localhost:3002/${movie.image}`} alt={movie.title} />
+                    </div>
+                </div>
+            ))}
+
         </div>
     )
 }
