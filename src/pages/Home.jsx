@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
     const [movies, setMovies] = useState(null)
@@ -17,11 +18,14 @@ const Home = () => {
     return (
         <div className='flex flex-wrap  '>
             {movies?.map(movie => (
-                <div key={`movie ${movie.id}`} className="p-2 w-1/3  ">
-                    <div className='p-2  rounded-md border border-stone-400'>
+                <div key={`movie ${movie.id}`} className="p-2 cursor-pointer w-1/3  ">
+                    <Link to={`/movie/${movie.id}`}>
+                        <div className='p-2 '>
 
-                        <img className='w-full block max-h-[400px] ' src={`http://localhost:3002/${movie.image}`} alt={movie.title} />
-                    </div>
+                            <img className='w-full block max-h-[400px] ' src={`http://localhost:3002/${movie.image}`} alt={movie.title} />
+
+                        </div>
+                    </Link>
                 </div>
             ))}
 
