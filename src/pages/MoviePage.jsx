@@ -60,10 +60,11 @@ const MoviePage = () => {
             {isModalOpen && !success && (
                 <>
                     {/* Overlay scuro */}
-                    <div className="fixed inset-0 bg-black opacity-70" />
+                    <div className="fixed inset-0 z-40 bg-black opacity-70" />
                     {/* Modale */}
-                    <div className="fixed inset-0 flex items-center justify-center">
+                    <div className="fixed  z-50 inset-0 flex items-center justify-center">
                         <form onSubmit={addReview} className="bg-white p-6 rounded-lg w-[500px]">
+                            <div onClick={() => setIsModalOpen(false)} className='w-full text-red-500 h-8 '><i className='fa-solid fa-xmark'></i></div>
                             <label className='text-sm mb-1' htmlFor="name">Nome</label>
                             <input
                                 onChange={(e) => setName(e.target.value)}
@@ -74,10 +75,10 @@ const MoviePage = () => {
                             <div className="my-4">
 
                                 <label className='w-full block mb-1 text-sm' htmlFor="vote">Voto</label>
-                                <select onChange={(e) => setVote(e.target.value)} className='w-1/3 border border-stone-300 rounded-md p-1 ' name="vote" id="vote">
+                                <select defaultValue={0} onChange={(e) => setVote(e.target.value)} className='w-1/3 border border-stone-300 rounded-md p-1 ' name="vote" id="vote">
 
-                                    {[1, 2, 3, 4, 5].map(vote => (
-                                        <option key={vote} value={vote} >{vote}</option>
+                                    {[0, 1, 2, 3, 4, 5].map(vote => (
+                                        <option disabled={vote === 0} key={vote} value={vote} >{vote}</option>
                                     ))}
                                 </select>
                             </div>
