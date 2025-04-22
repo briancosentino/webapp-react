@@ -5,20 +5,24 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import MoviePage from './pages/MoviePage'
 import PaddingWrapper from './components/PaddingWrapper'
+import { LoaderProvider } from './components/LoaderContext'
 
 function App() {
 
   return (
     <>
       <BrowserRouter>
-        <Navbar />
-        <PaddingWrapper>
+        <LoaderProvider>
 
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/movie/:id' element={<MoviePage />} />
-          </Routes>
-        </PaddingWrapper>
+          <Navbar />
+          <PaddingWrapper>
+
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/movie/:id' element={<MoviePage />} />
+            </Routes>
+          </PaddingWrapper>
+        </LoaderProvider>
       </BrowserRouter>
     </>
   )

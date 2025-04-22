@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Loader from '../components/Loader'
+import { useLoader } from '../components/LoaderContext'
 
 const MoviePage = () => {
     const { id } = useParams()
@@ -9,18 +11,26 @@ const MoviePage = () => {
     const [text, setText] = useState(null)
     const [vote, setVote] = useState(null)
     const [success, setSuccess] = useState(false)
+    const { setIsLoading } = useLoader()
 
     const fetchMovie = () => {
+        setIsLoading(true)
         fetch(`http://localhost:3002/movies/${id}`)
             .then(res => res.json())
-            .then(data => setMovie(data))
-            .catch(err => console.error(err))
+            .then(data => {
+                setMovie(data)
+                setIsLoading(false)
+            })
+            .catch(err => {
+                console.error(err)
+                setIsLoading(false)
+            })
 
 
     }
     useEffect(() => {
         fetchMovie()
-    }, [movie])
+    }, [])
 
     function addReview(e) {
         e.preventDefault()
@@ -40,6 +50,7 @@ const MoviePage = () => {
             .then(() => {
                 setSuccess(true)
                 setIsModalOpen(false)
+                fetchMovie()
             })
     }
 
@@ -47,7 +58,9 @@ const MoviePage = () => {
 
 
     return (
+
         <div className='flex relative gap-8'>
+            <Loader />
             {success && (
                 <div className="fixed w-full h-full z-50 inset-0 flex items-center justify-center">
                     <div className='w-[400px] pt-8 text-center bg-white shadow rounded-md'>
